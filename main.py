@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def spiral_maker(r=None, data_size=None, number_of_spirals=None, number_of_spins=None, number_of_classes=None, noise=0.3):
+def spiral_maker(center_radius=None, data_size=None, number_of_spirals=None, number_of_spins=None, number_of_classes=None, noise=0.3):
     if not data_size:
         data_size = np.random.randint(100, 2000, 1)[0]
     if not number_of_spirals:
@@ -20,10 +20,10 @@ def spiral_maker(r=None, data_size=None, number_of_spirals=None, number_of_spins
         number_of_spins = 0
         while not number_of_spins:
             number_of_spins = np.random.uniform(0, 2, 1)[0]
-    if not r:
-        r = 0
-        while not r:
-            r = np.random.randint(0, 100, 1)[0]
+    if not center_radius:
+        center_radius = 0
+        while not center_radius:
+            center_radius = np.random.randint(0, 100, 1)[0]
 
     if not number_of_classes:
         number_of_classes = 0
@@ -43,7 +43,7 @@ def spiral_maker(r=None, data_size=None, number_of_spirals=None, number_of_spins
     t = np.linspace(0, number_of_spins * np.pi, num=data_size, endpoint=False)
     spiral_theta = np.linspace(0, 2 * np.pi, num=number_of_spirals, endpoint=False)
     
-    r = 2*t + r
+    r = 2*t + center_radius
 
     spiral_theta = np.repeat(spiral_theta, data_size)
     t = np.tile(t, number_of_spirals)
@@ -74,15 +74,16 @@ def spiral_maker(r=None, data_size=None, number_of_spirals=None, number_of_spins
         "number_of_spirals":number_of_spirals,
         "number_of_spins":number_of_spins,
         "number_of_classes":number_of_classes,
+        "noise":noise,
+        "center_radius":center_radius,
     }
     return all_vars
 
 
-inputs = {"data_size":150, 'number_of_spirals':16, 'number_of_spins':0.3, "number_of_classes":8, 'r':0.2, "noise":0.1}
+inputs = {"data_size":150, 'number_of_spirals':24, 'number_of_spins':2, "number_of_classes":8, 'center_radius':0.5, "noise":0.1}
 
 vars = spiral_maker(**inputs)
 plt.scatter(x=vars['x'], y=vars['y'], c=vars['c']);
-plt.show()
 
 print(
     f"""
@@ -92,3 +93,15 @@ print(
     number_of_classes:{vars['number_of_classes']}
     """
 )
+
+
+import pandas as pd
+data = pd.DataFrame(
+    {
+    "x1":vars["x"],
+    "x2":vars["y"],
+    "y":vars["target"],
+    }
+)
+
+data.to_csv(f"Spiral_data_set_{vars['data_size']}_{vars['number_of_spirals']}_{vars['number_of_spins']}_{vars['number_of_classes']}_{vars['noise']}_{vars['center_radius']}.csv", index=False)
