@@ -90,6 +90,5 @@ print(
     number_of_spirals:{vars['number_of_spirals']}
     number_of_spins:{vars['number_of_spins']}
     number_of_classes:{vars['number_of_classes']}
-    data_size/ns:{vars['data_size']/vars['number_of_spirals']}
     """
 )
