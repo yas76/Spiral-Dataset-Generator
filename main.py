@@ -23,7 +23,7 @@ def spiral_maker(center_radius=None, data_size=None, number_of_spirals=None, num
     if not center_radius:
         center_radius = 0
         while not center_radius:
-            center_radius = np.random.randint(0, 100, 1)[0]
+            center_radius = np.random.uniform(0, 2, 1)[0]
 
     if not number_of_classes:
         number_of_classes = 0
