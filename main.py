@@ -19,11 +19,11 @@ def spiral_maker(center_radius=None, data_size=None, number_of_spirals=None, num
     if not number_of_spins:
         number_of_spins = 0
         while not number_of_spins:
-            number_of_spins = np.random.uniform(0, 2, 1)[0]
+            number_of_spins = round(np.random.uniform(0, 2, 1)[0], 2)
     if not center_radius:
         center_radius = 0
         while not center_radius:
-            center_radius = np.random.uniform(0, 2, 1)[0]
+            center_radius = round(np.random.uniform(0, 2, 1)[0], 2)
 
     if not number_of_classes:
         number_of_classes = 0
